@@ -135,10 +135,29 @@ mag_limit = st.sidebar.slider(
 # FILE UPLOADER
 # =========================================================
 
-uploaded_file = st.file_uploader(
-    "Upload FITS File",
-    type=["fits", "fit", "fits.gz"]
+import os
+
+# 1. Add the toggle in the sidebar
+input_method = st.sidebar.radio(
+    "Select Data Source:", 
+    ("Use Demo Sample", "Upload My Own")
 )
+
+uploaded_file = None
+
+# 2. Logic to choose between the demo file or manual upload
+if input_method == "Use Demo Sample":
+    file_path = "sample_data/sample.fits"
+    if os.path.exists(file_path):
+        uploaded_file = file_path
+    else:
+        st.sidebar.error("Demo file not found!")
+else:
+    uploaded_file = st.sidebar.file_uploader(
+        "Upload FITS File",
+        type=["fits", "fit", "fits.gz"]
+    )
+
 
 # =========================================================
 # PROCESSING
