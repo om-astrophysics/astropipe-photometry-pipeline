@@ -16,6 +16,7 @@ from photutils.aperture import (
 )
 
 from scipy.ndimage import gaussian_filter
+import os
 
 # =========================================================
 # STREAMLIT PAGE CONFIG
@@ -131,38 +132,36 @@ mag_limit = st.sidebar.slider(
     step=0.5
 )
 
-# =========================================================
+
 # =============================================================================
-# FILE UPLOADER & DEMO SELECTION
+# DATA SOURCE SELECTION (MAIN SCREEN)
 # =============================================================================
 
-import os
-
-# 1. We put "Upload My Own" FIRST so it is the default choice when the app opens
-input_method = st.sidebar.radio(
+# This sits on the main landing segment instead of buried in the parameters panel
+input_method = st.radio(
     "Select Data Source:", 
-    ("Upload My Own", "Use Demo Sample")
+    ("Upload My Own", "Use Demo Sample"),
+    horizontal=True
 )
 
 uploaded_file = None
 
-# 2. Logic to assign the correct file source based on the user's choice
 if input_method == "Use Demo Sample":
     file_path = "sample_data/sample.fits"
     if os.path.exists(file_path):
         uploaded_file = file_path
     else:
-        st.sidebar.error("Demo file not found in 'sample_data/' folder!")
+        st.error("Demo file not found in 'sample_data/' folder!")
 else:
-    # This brings back your clean file uploader box as the default view
-    uploaded_file = st.sidebar.file_uploader(
+    # Large responsive box sits center stage
+    uploaded_file = st.file_uploader(
         "Upload FITS File",
         type=["fits", "fit", "fits.gz"]
     )
 
 
 # =========================================================
-# PROCESSING
+# PROCESSING ENGINE
 # =========================================================
 
 if uploaded_file is not None:
