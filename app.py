@@ -132,27 +132,29 @@ mag_limit = st.sidebar.slider(
 )
 
 # =========================================================
-# FILE UPLOADER
-# =========================================================
+# =============================================================================
+# FILE UPLOADER & DEMO SELECTION
+# =============================================================================
 
 import os
 
-# 1. Add the toggle in the sidebar
+# 1. We put "Upload My Own" FIRST so it is the default choice when the app opens
 input_method = st.sidebar.radio(
     "Select Data Source:", 
-    ("Use Demo Sample", "Upload My Own")
+    ("Upload My Own", "Use Demo Sample")
 )
 
 uploaded_file = None
 
-# 2. Logic to choose between the demo file or manual upload
+# 2. Logic to assign the correct file source based on the user's choice
 if input_method == "Use Demo Sample":
     file_path = "sample_data/sample.fits"
     if os.path.exists(file_path):
         uploaded_file = file_path
     else:
-        st.sidebar.error("Demo file not found!")
+        st.sidebar.error("Demo file not found in 'sample_data/' folder!")
 else:
+    # This brings back your clean file uploader box as the default view
     uploaded_file = st.sidebar.file_uploader(
         "Upload FITS File",
         type=["fits", "fit", "fits.gz"]
