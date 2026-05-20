@@ -2,6 +2,14 @@
 
 Astropipe is a research-grade pipeline designed for the reduction and photometric analysis of astronomical FITS data. I developed this tool to automate the transition from raw telescope imagery to structured, scientific-grade catalogs.
 
+##  Quick Start / Live Demo
+
+Don't have an astronomical `.fits` image file on hand? You can still test the pipeline instantly:
+
+1. Open the [Live Web App](https://astropipe-photometry-pipeline-tykcjtnfuqxf9bhazxyr9t.streamlit.app/).
+2. On the main screen under **Select Data Source**, toggle the option to **"Use Demo Sample"**.
+3. Watch the pipeline automatically run background estimation, source detection, and calculate the photometry catalog using a pre-loaded target field!
+
 ### Scientific Capabilities
 * **Automated Data Reduction:** Performs 3-sigma clipped background estimation and utilizes Gaussian smoothing to enhance signal detection in noisy datasets.
 * **Research-Grade Photometry:** Implements aperture-based photometry with local background annulus subtraction, ensuring accurate flux measurement and instrumental magnitude calibration: `m = ZeroPoint - 2.5 * log10(Flux_corrected)`.
